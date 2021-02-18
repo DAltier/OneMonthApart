@@ -15,7 +15,7 @@ import java.lang.Math;
 
 public class OneMonthApart{
 
-    public static int monthApartNotLeap(int monthOne, int dayOne, int monthTwo, int dayTwo) {
+    public static int monthApart(int monthOne, int dayOne, int monthTwo, int dayTwo) {
         int monthDays = -1; 
         int monthMin = Math.min(monthOne, monthTwo); 
         // Gets the lesser month
@@ -127,33 +127,6 @@ public class OneMonthApart{
             case 3:
                 monthDays = 31;
                 break;
-            case 4:
-                monthDays = 30;
-                break;
-            case 5:
-                monthDays = 31;
-                break;
-            case 6:
-                monthDays = 30;
-                break;
-            case 7:
-                monthDays = 31;
-                break;
-            case 8: 
-                monthDays = 31;
-                break;
-            case 9:
-                monthDays = 30;
-                break;
-            case 10:
-                monthDays = 31;
-                break;
-            case 11:
-                monthDays = 30;
-                break;
-            case 12:
-                monthDays = 31;
-                break;
         }
 
         int dayFirst = -1; // Plan: Last day of month-day of lower month + days on next month
@@ -225,9 +198,13 @@ public class OneMonthApart{
             //Same year
             if (year1 % 4 == 0) {
                 //Testing for leap year, special case if one of the months is February
-                return monthApartLeap(month1, day1, month2, day2);
+                if (month1 == 2 || month2 == 2) {
+                    return monthApartLeap(month1, day1, month2, day2);}
+                else {
+                    return monthApart(month1, day1, month2, day2);
+                }
             } else {
-                return monthApartNotLeap(month1, day1, month2, day2);
+                return monthApart(month1, day1, month2, day2);
             }
         }
         return 0;
@@ -237,10 +214,10 @@ public class OneMonthApart{
          
         Calendar cal1 = new GregorianCalendar();
         SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd/MM/yyyy");
-        cal1.set(2012, 3, 1); //Month starts as 0 for Calendar, so 3 is actually April
+        cal1.set(2012, 2, 1); //Month starts as 0 for Calendar, so 3 is actually April
         Calendar cal2 = new GregorianCalendar();
         SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yyyy");
-        cal2.set(2012, 4, 1);
+        cal2.set(2012, 3, 1);
         System.out.println(comparison(cal1, cal2));
     }
 }
